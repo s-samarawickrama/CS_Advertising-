@@ -141,14 +141,14 @@ export default function PortfolioSection() {
               <Image
                 src="/images/aicha_logo.png"
                 alt="Ai-CHA Ice Cream & Tea"
-                width={220}
-                height={73}
+                width={240}
+                height={80}
                 className="aicha-logo-img"
                 style={{
                   width: "auto",
                   height: "auto",
-                  maxHeight: "56px",
-                  maxWidth: "230px",
+                  maxHeight: "64px",
+                  maxWidth: "240px",
                   objectFit: "contain",
                   display: "block",
                 }}
