@@ -28,8 +28,24 @@ export default function AiChaCaseStudy({ image }: AiChaProps) {
 
           <div className="txt">
             <h3>Made for every business</h3>
+            <div style={{ marginBottom: "14px" }}>
+              <Image
+                src="/images/aicha_logo.png"
+                alt="Ai-CHA Ice Cream & Tea"
+                width={220}
+                height={73}
+                style={{
+                  width: "auto",
+                  height: "auto",
+                  maxHeight: "56px",
+                  maxWidth: "230px",
+                  objectFit: "contain",
+                  display: "block",
+                  filter: "drop-shadow(0 0 8px rgba(255, 42, 54, 0.5)) drop-shadow(0 0 20px rgba(255, 42, 54, 0.25))",
+                }}
+              />
+            </div>
             <p>
-              <strong className="highlight-brand">Ai-Cha Ice Cream &amp; Tea</strong>
               Received a complete shop branding &amp; interior fit-out: <span className="highlight-features">custom 3D signage, neon lighting, furniture, and branded storefront fixtures</span>.
             </p>
             <a

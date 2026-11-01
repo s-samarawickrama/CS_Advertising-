@@ -137,8 +137,24 @@ export default function PortfolioSection() {
 
           <div className="txt">
             <h3>Made for every business</h3>
+            <div className="aicha-logo-wrap">
+              <Image
+                src="/images/aicha_logo.png"
+                alt="Ai-CHA Ice Cream & Tea"
+                width={220}
+                height={73}
+                className="aicha-logo-img"
+                style={{
+                  width: "auto",
+                  height: "auto",
+                  maxHeight: "56px",
+                  maxWidth: "230px",
+                  objectFit: "contain",
+                  display: "block",
+                }}
+              />
+            </div>
             <p>
-              <strong className="highlight-brand">Ai-Cha Ice Cream &amp; Tea</strong>
               Received a complete shop branding &amp; interior fit-out: <span className="highlight-features">custom 3D signage, neon lighting, furniture, and branded storefront fixtures</span>.
             </p>
             <a
@@ -334,6 +350,30 @@ export default function PortfolioSection() {
           max-width: 44ch;
           font-size: 16.5px;
           line-height: 1.65;
+        }
+
+        .aicha-logo-wrap {
+          margin-bottom: 14px;
+          display: inline-block;
+        }
+
+        :global(.aicha-logo-img) {
+          filter: drop-shadow(0 0 8px rgba(255, 42, 54, 0.5)) drop-shadow(0 0 20px rgba(255, 42, 54, 0.25));
+          transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .banner:hover :global(.aicha-logo-img) {
+          filter: drop-shadow(0 0 10px #ff2a36) drop-shadow(0 0 26px rgba(255, 42, 54, 0.7));
+          transform: translateY(-1px) scale(1.02);
+        }
+
+        :global([data-theme="light"]) :global(.aicha-logo-img) {
+          filter: drop-shadow(0 2px 8px rgba(225, 29, 46, 0.35)) drop-shadow(0 0 16px rgba(225, 29, 46, 0.15));
+        }
+
+        :global([data-theme="light"]) .banner:hover :global(.aicha-logo-img) {
+          filter: drop-shadow(0 4px 14px rgba(225, 29, 46, 0.5));
+          transform: translateY(-1px) scale(1.02);
         }
 
         :global(.highlight-brand) {
