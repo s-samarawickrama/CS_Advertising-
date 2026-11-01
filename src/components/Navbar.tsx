@@ -176,60 +176,96 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Menu Dropdown & Backdrop */}
       {mobileMenuOpen && (
         <div
+          onClick={closeMenu}
           style={{
             position: "fixed",
             inset: 0,
             top: "74px",
             zIndex: 49,
-            background: "var(--bg)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            padding: "24px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            borderBottom: "2px solid var(--red)",
-            overflowY: "auto",
+            background: "rgba(0, 0, 0, 0.55)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+            animation: "fadeIn 0.2s ease",
           }}
-          className="mobile-drawer"
+          className="mobile-menu-overlay"
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-            <span style={{ fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--red)", fontWeight: "800" }}>
-              Navigation Menu
-            </span>
-            <a href="#services" onClick={closeMenu} style={mobileNavLinkStyle}>
-              Services
-            </a>
-            <a href="#work" onClick={closeMenu} style={mobileNavLinkStyle}>
-              Our work
-            </a>
-            <a href="#contact" onClick={closeMenu} style={mobileNavLinkStyle}>
-              Contact
-            </a>
-          </div>
+          {/* Compact Floating Dropdown Panel - Does NOT cover whole screen */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "var(--header-bg)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              padding: "20px 20px 24px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "18px",
+              borderBottom: "2px solid var(--red)",
+              borderBottomLeftRadius: "16px",
+              borderBottomRightRadius: "16px",
+              boxShadow: "0 18px 40px rgba(0, 0, 0, 0.5)",
+              animation: "slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+              maxHeight: "80vh",
+              overflowY: "auto",
+            }}
+            className="mobile-dropdown-card"
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--red)", fontWeight: "800", marginBottom: "4px" }}>
+                Jump to section
+              </span>
+              <a
+                href="#services"
+                onClick={closeMenu}
+                style={mobileNavLinkStyle}
+                className="mobile-nav-item"
+              >
+                <span>Services</span>
+                <span style={{ color: "var(--red)", fontSize: "16px" }}>→</span>
+              </a>
+              <a
+                href="#work"
+                onClick={closeMenu}
+                style={mobileNavLinkStyle}
+                className="mobile-nav-item"
+              >
+                <span>Our work</span>
+                <span style={{ color: "var(--red)", fontSize: "16px" }}>→</span>
+              </a>
+              <a
+                href="#contact"
+                onClick={closeMenu}
+                style={mobileNavLinkStyle}
+                className="mobile-nav-item"
+              >
+                <span>Contact</span>
+                <span style={{ color: "var(--red)", fontSize: "16px" }}>→</span>
+              </a>
+            </div>
 
-          <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", gap: "12px", borderTop: "1px solid var(--line)", paddingTop: "24px" }}>
-            <a
-              href="https://wa.me/94779282503?text=Hi%20CS%20Advertising,%20I%20am%20contacting%20you%20from%20your%20website%20for%20a%20quotation."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary"
-              style={{ width: "100%", justifyContent: "center", padding: "14px" }}
-              onClick={closeMenu}
-            >
-              Message on WhatsApp
-            </a>
-            <a
-              href="tel:+94779282503"
-              className="btn btn-secondary"
-              style={{ width: "100%", justifyContent: "center", padding: "14px" }}
-              onClick={closeMenu}
-            >
-              Call 077 928 2503
-            </a>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", borderTop: "1px solid var(--line)", paddingTop: "16px" }}>
+              <a
+                href="https://wa.me/94779282503?text=Hi%20CS%20Advertising,%20I%20am%20contacting%20you%20from%20your%20website%20for%20a%20quotation."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+                style={{ width: "100%", justifyContent: "center", padding: "12px", fontSize: "14.5px" }}
+                onClick={closeMenu}
+              >
+                Message on WhatsApp
+              </a>
+              <a
+                href="tel:+94779282503"
+                className="btn btn-secondary"
+                style={{ width: "100%", justifyContent: "center", padding: "12px", fontSize: "14.5px" }}
+                onClick={closeMenu}
+              >
+                Call 077 928 2503
+              </a>
+            </div>
           </div>
         </div>
       )}
@@ -247,6 +283,27 @@ export default function Navbar() {
         .desktop-phone-btn:hover {
           border-color: var(--red);
           box-shadow: var(--glow-soft);
+        }
+        :global(.mobile-nav-item) {
+          transition: background 0.15s ease, padding-left 0.15s ease, color 0.15s ease;
+        }
+        :global(.mobile-nav-item:active) {
+          color: var(--red) !important;
+          padding-left: 6px !important;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @media (max-width: 992px) {
           .desktop-nav {
@@ -270,10 +327,14 @@ export default function Navbar() {
 }
 
 const mobileNavLinkStyle: React.CSSProperties = {
-  fontSize: "19px",
+  fontSize: "17px",
   fontWeight: "700",
   color: "var(--text)",
   textDecoration: "none",
-  padding: "10px 0",
+  padding: "10px 8px",
+  borderRadius: "8px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
   borderBottom: "1px solid var(--line-subtle)",
 };

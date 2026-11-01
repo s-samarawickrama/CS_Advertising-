@@ -28,7 +28,7 @@ export default function PortfolioSection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [meterWidth, setMeterWidth] = useState(33);
   const [meterLeft, setMeterLeft] = useState(0);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [activeCardIndex, setActiveCardIndex] = useState(-1);
 
   const updateMeter = () => {
     const t = trackRef.current;
@@ -38,21 +38,26 @@ export default function PortfolioSection() {
     setMeterWidth(w);
     setMeterLeft(max > 0 ? (t.scrollLeft / max) * (100 - w) : 0);
 
-    // Auto-hover / highlight the card currently centered/visible in viewport on mobile
-    const figures = t.querySelectorAll("figure");
-    if (figures.length > 0) {
-      const trackCenter = t.scrollLeft + t.clientWidth / 2;
-      let closestIdx = 0;
-      let minDiff = Infinity;
-      figures.forEach((fig, idx) => {
-        const figCenter = (fig as HTMLElement).offsetLeft + (fig as HTMLElement).offsetWidth / 2;
-        const diff = Math.abs(trackCenter - figCenter);
-        if (diff < minDiff) {
-          minDiff = diff;
-          closestIdx = idx;
-        }
-      });
-      setActiveCardIndex(closestIdx);
+    // On mobile screens (<= 820px), auto-hover / highlight the card in the center of the track.
+    // On desktop / web, do NOT pre-hover cards — only hover via mouse.
+    if (typeof window !== "undefined" && window.innerWidth <= 820) {
+      const figures = t.querySelectorAll("figure");
+      if (figures.length > 0) {
+        const trackCenter = t.scrollLeft + t.clientWidth / 2;
+        let closestIdx = 0;
+        let minDiff = Infinity;
+        figures.forEach((fig, idx) => {
+          const figCenter = (fig as HTMLElement).offsetLeft + (fig as HTMLElement).offsetWidth / 2;
+          const diff = Math.abs(trackCenter - figCenter);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestIdx = idx;
+          }
+        });
+        setActiveCardIndex(closestIdx);
+      }
+    } else {
+      setActiveCardIndex(-1);
     }
   };
 
@@ -213,15 +218,13 @@ export default function PortfolioSection() {
           justifyContent: space-between;
         }
 
-        figure:hover,
-        figure.is-active {
+        figure:hover {
           transform: translateY(-6px) rotate(-0.5deg);
           border-color: var(--red);
           box-shadow: 0 0 16px rgba(255, 42, 54, 0.45), 0 0 32px rgba(255, 42, 54, 0.2);
         }
 
-        :global([data-theme="light"]) figure:hover,
-        :global([data-theme="light"]) figure.is-active {
+        :global([data-theme="light"]) figure:hover {
           border-color: var(--red);
           box-shadow: 0 6px 22px rgba(225, 29, 46, 0.28);
           transform: translateY(-4px);
@@ -238,8 +241,7 @@ export default function PortfolioSection() {
           transition: transform 0.3s ease;
         }
 
-        figure:hover .card-media :global(img),
-        figure.is-active .card-media :global(img) {
+        figure:hover .card-media :global(img) {
           transform: scale(1.05);
         }
 
@@ -262,14 +264,12 @@ export default function PortfolioSection() {
           transition: color 0.25s ease;
         }
 
-        figure:hover figcaption strong,
-        figure.is-active figcaption strong {
+        figure:hover figcaption strong {
           color: var(--red);
           text-shadow: 0 0 10px rgba(255, 42, 54, 0.45);
         }
 
-        :global([data-theme="light"]) figure:hover figcaption strong,
-        :global([data-theme="light"]) figure.is-active figcaption strong {
+        :global([data-theme="light"]) figure:hover figcaption strong {
           color: var(--red-deep);
           text-shadow: none;
         }
@@ -398,6 +398,27 @@ export default function PortfolioSection() {
         }
 
         @media (max-width: 820px) {
+          figure.is-active {
+            transform: translateY(-4px);
+            border-color: var(--red);
+            box-shadow: 0 0 14px rgba(255, 42, 54, 0.45), 0 0 28px rgba(255, 42, 54, 0.2);
+          }
+          :global([data-theme="light"]) figure.is-active {
+            border-color: var(--red);
+            box-shadow: 0 6px 20px rgba(225, 29, 46, 0.28);
+            transform: translateY(-3px);
+          }
+          figure.is-active .card-media :global(img) {
+            transform: scale(1.04);
+          }
+          figure.is-active figcaption strong {
+            color: var(--red);
+            text-shadow: 0 0 10px rgba(255, 42, 54, 0.45);
+          }
+          :global([data-theme="light"]) figure.is-active figcaption strong {
+            color: var(--red-deep);
+            text-shadow: none;
+          }
           .banner {
             grid-template-columns: 1fr;
             gap: 0;
