@@ -38,7 +38,15 @@ export default function ContactSection() {
             </div>
             <div>
               <dt>Workshop</dt>
-              <dd>Egodawatta Road, Boralesgamuwa, Sri Lanka</dd>
+              <dd>
+                <a
+                  href="https://maps.app.goo.gl/bKx8XBbLHe53FMZT8?g_st=aw"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Egodawatta Road, Boralesgamuwa, Sri Lanka
+                </a>
+              </dd>
             </div>
             <div>
               <dt>Facebook</dt>

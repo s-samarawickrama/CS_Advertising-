@@ -78,10 +78,15 @@ export default function AboutSection() {
                 }}
               >
                 <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", color: "var(--red)", fontWeight: "800", textTransform: "uppercase" }}>
+                  <a
+                    href="https://maps.app.goo.gl/bKx8XBbLHe53FMZT8?g_st=aw"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", color: "var(--red)", fontWeight: "800", textTransform: "uppercase", textDecoration: "none" }}
+                  >
                     <MapPin size={13} />
                     <span>Boralesgamuwa Facility</span>
-                  </div>
+                  </a>
                   <strong style={{ fontSize: "16px", display: "block", marginTop: "2px" }}>
                     CS In-House Sign Manufacturing Hub
                   </strong>

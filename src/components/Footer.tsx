@@ -21,8 +21,15 @@ export default function Footer() {
         }}
       >
         <div>© 2026 CS Advertising. Your visibility is your success.</div>
-        <div style={{ display: "flex", gap: "16px" }}>
-          <span>Boralesgamuwa, Sri Lanka</span>
+        <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+          <a
+            href="https://maps.app.goo.gl/bKx8XBbLHe53FMZT8?g_st=aw"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--muted)", textDecoration: "none" }}
+          >
+            Boralesgamuwa, Sri Lanka
+          </a>
           <span>•</span>
           <a
             href="https://wa.me/94779282503"
