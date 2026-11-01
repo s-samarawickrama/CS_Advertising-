@@ -3,6 +3,24 @@
 import Image from "next/image";
 
 export default function BrandStylesSection() {
+  const handleCardClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const el = document.getElementById(targetId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      const parentTrack = el.closest(".track");
+      if (parentTrack) {
+        const trackLeft = (parentTrack as HTMLElement).getBoundingClientRect().left;
+        const elLeft = el.getBoundingClientRect().left;
+        const offset = elLeft - trackLeft - (parentTrack.clientWidth / 2 - el.clientWidth / 2);
+        parentTrack.scrollBy({ left: offset, behavior: "smooth" });
+      }
+      el.classList.add("target-pulse");
+      setTimeout(() => el.classList.remove("target-pulse"), 1600);
+      window.history.pushState(null, "", `#${targetId}`);
+    }
+  };
+
   return (
     <section id="light">
       <div className="container center">
@@ -13,7 +31,12 @@ export default function BrandStylesSection() {
 
         <div className="stack">
           {/* Card 1: Embossed Letters */}
-          <div className="tile glass">
+          <a
+            href="#embossed-showcase"
+            className="tile glass"
+            onClick={(e) => handleCardClick(e, "embossed-showcase")}
+            title="View 3D & Embossed Letters projects"
+          >
             <div className="face">
               <Image
                 src="/images/style_embossed.png"
@@ -34,10 +57,15 @@ export default function BrandStylesSection() {
               <h3>Embossed letters</h3>
               <p>Custom raised lettering for standout shops and offices.</p>
             </div>
-          </div>
+          </a>
 
           {/* Card 2: LED */}
-          <div className="tile glass">
+          <a
+            href="#featured-led"
+            className="tile glass"
+            onClick={(e) => handleCardClick(e, "featured-led")}
+            title="View LED & 3D Signboards"
+          >
             <div className="face">
               <Image
                 src="/images/style_led.png"
@@ -58,10 +86,15 @@ export default function BrandStylesSection() {
               <h3>LED boards</h3>
               <p>Bright, even light that reads from across the road.</p>
             </div>
-          </div>
+          </a>
 
           {/* Card 3: Neon */}
-          <div className="tile glass">
+          <a
+            href="#featured-neon"
+            className="tile glass"
+            onClick={(e) => handleCardClick(e, "featured-neon")}
+            title="View Custom Neon Signs"
+          >
             <div className="face">
               <Image
                 src="/images/style_neon.png"
@@ -82,10 +115,15 @@ export default function BrandStylesSection() {
               <h3>Neon signs</h3>
               <p>Custom shapes and logos in glowing tube light.</p>
             </div>
-          </div>
+          </a>
 
           {/* Card 4: 3D */}
-          <div className="tile glass">
+          <a
+            href="#embossed-showcase"
+            className="tile glass"
+            onClick={(e) => handleCardClick(e, "embossed-showcase")}
+            title="View 3D letters projects"
+          >
             <div className="face">
               <Image
                 src="/images/style_3d.png"
@@ -106,7 +144,7 @@ export default function BrandStylesSection() {
               <h3>3D letters</h3>
               <p>Solid dimensional lettering with real depth.</p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -153,6 +191,8 @@ export default function BrandStylesSection() {
           transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
           border-radius: 14px;
           cursor: pointer;
+          text-decoration: none;
+          color: inherit;
           background: linear-gradient(135deg, rgba(255, 42, 54, 0.16), rgba(255, 255, 255, 0.03) 60%), #080808;
           -webkit-backdrop-filter: blur(14px);
           backdrop-filter: blur(14px);

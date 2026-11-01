@@ -5,19 +5,19 @@ import Image from "next/image";
 
 const featuredSigns = [
   {
-    id: "retail-boards",
+    id: "featured-retail",
     title: "Commercial & Retail Boards",
     type: "Outdoor illuminated fascia & storefront signs",
     image: "/images/featured_2.jpg",
   },
   {
-    id: "illuminated-showcase",
+    id: "featured-led",
     title: "LED & 3D Signboards",
     type: "Storefront lightbox, 3D acrylic & retail signs",
     image: "/images/featured_1.jpg",
   },
   {
-    id: "neon-signs",
+    id: "featured-neon",
     title: "Custom Neon Signs",
     type: "Handcrafted neon signs & decorative lighting",
     image: "/images/featured_3.png",
@@ -85,13 +85,17 @@ export default function PortfolioSection() {
         </div>
 
         {/* 1. Long Banner: 3D & Embossed Letters Showcase */}
-        <div className="banner glass embossed-banner" style={{ marginBottom: "52px" }}>
+        <div
+          id="embossed-showcase"
+          className="banner glass"
+          style={{ marginBottom: "52px", scrollMarginTop: "90px" }}
+        >
           <div className="banner-visual">
             <Image
               src="/images/embossed_branding.jpg"
-              alt="Custom embossed & 3D lettering projects by CS Advertising"
-              width={1024}
-              height={341}
+              alt="The Open University of Sri Lanka and commercial embossed letters by CS Advertising"
+              width={700}
+              height={450}
               style={{
                 width: "100%",
                 height: "100%",
@@ -120,7 +124,12 @@ export default function PortfolioSection() {
         {/* 2. 3 Featured Sign Cards Track */}
         <div className="track" ref={trackRef} tabIndex={0} aria-label="Featured signs">
           {featuredSigns.map((item, idx) => (
-            <figure key={item.id} className={activeCardIndex === idx ? "is-active" : ""}>
+            <figure
+              key={item.id}
+              id={item.id}
+              className={activeCardIndex === idx ? "is-active" : ""}
+              style={{ scrollMarginTop: "100px" }}
+            >
               <div className="card-media">
                 <Image
                   src={item.image}
@@ -356,28 +365,11 @@ export default function PortfolioSection() {
           background: #000;
         }
 
-        .embossed-banner {
-          grid-template-columns: 1.25fr 0.75fr;
-        }
-
-        .embossed-banner .banner-visual {
-          min-height: 220px;
-          height: 100%;
-        }
-
-        .embossed-banner .txt {
-          padding: 24px 32px 24px 0;
-        }
-
-        .embossed-banner .txt h3 {
-          font-size: clamp(24px, 2.8vw, 36px);
-          margin: 0 0 12px;
-        }
-
-        .embossed-banner .txt p {
-          margin: 0 0 20px;
-          font-size: 15.5px;
-          line-height: 1.6;
+        :global(.target-pulse) {
+          border-color: var(--red) !important;
+          box-shadow: 0 0 24px rgba(255, 42, 54, 0.75), 0 0 45px rgba(255, 42, 54, 0.4) !important;
+          transform: translateY(-3px) scale(1.01) !important;
+          transition: all 0.35s ease !important;
         }
 
         .banner-visual :global(img) {
@@ -511,17 +503,10 @@ export default function PortfolioSection() {
             grid-template-columns: 1fr;
             gap: 0;
           }
-          .embossed-banner {
-            grid-template-columns: 1fr;
-          }
           .banner-visual {
             border-right: 0;
             border-bottom: 1px solid var(--line);
             min-height: 220px;
-          }
-          .embossed-banner .banner-visual {
-            min-height: 140px;
-            aspect-ratio: 16 / 6.5;
           }
           .txt {
             padding: 24px 24px 32px;
