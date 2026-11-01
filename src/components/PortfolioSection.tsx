@@ -179,12 +179,6 @@ export default function PortfolioSection() {
           line-height: 1.6;
         }
 
-        .spark {
-          color: var(--red);
-          text-shadow: var(--glow);
-          margin-right: 10px;
-        }
-
         .track {
           display: grid;
           grid-auto-flow: column;

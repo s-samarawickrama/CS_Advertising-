@@ -110,12 +110,6 @@ export default function BrandStylesSection() {
           line-height: 1.6;
         }
 
-        .spark {
-          color: var(--red);
-          text-shadow: var(--glow);
-          margin-right: 10px;
-        }
-
         .stack {
           display: flex;
           justify-content: center;
