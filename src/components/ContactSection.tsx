@@ -33,7 +33,7 @@ export default function ContactSection() {
             <div>
               <dt>Email</dt>
               <dd>
-                <a href="mailto:csadvertising225@gmail.com">csadvertising225@gmail.com</a>
+                <a href="mailto:csadvertisingboralasgamuwa@gmail.com">csadvertisingboralasgamuwa@gmail.com</a>
               </dd>
             </div>
             <div>
