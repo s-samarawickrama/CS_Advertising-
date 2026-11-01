@@ -85,8 +85,8 @@ export default function PortfolioSection() {
         </div>
 
         {/* 1. Long Banner: 3D & Embossed Letters Showcase */}
-        <div className="banner glass" style={{ marginBottom: "52px" }}>
-          <div className="banner-visual embossed-visual">
+        <div className="banner glass embossed-banner" style={{ marginBottom: "52px" }}>
+          <div className="banner-visual">
             <Image
               src="/images/embossed_branding.jpg"
               alt="Custom embossed & 3D lettering projects by CS Advertising"
@@ -94,9 +94,8 @@ export default function PortfolioSection() {
               height={341}
               style={{
                 width: "100%",
-                height: "auto",
-                maxHeight: "100%",
-                objectFit: "contain",
+                height: "100%",
+                objectFit: "cover",
                 display: "block",
               }}
             />
@@ -104,23 +103,6 @@ export default function PortfolioSection() {
 
           <div className="txt">
             <h3>Precision 3D &amp; embossed</h3>
-            <div className="embossed-logo-wrap">
-              <Image
-                src="/images/style_embossed.png"
-                alt="Embossed letters signage"
-                width={260}
-                height={124}
-                className="embossed-logo-img"
-                style={{
-                  width: "auto",
-                  height: "auto",
-                  maxHeight: "68px",
-                  maxWidth: "250px",
-                  objectFit: "contain",
-                  display: "block",
-                }}
-              />
-            </div>
             <p>
               Architectural dimensional signage &amp; illuminated letters: <span className="highlight-features">The Open University of Sri Lanka, DEWY Online Store, immense Home, and bespoke commercial installations</span>.
             </p>
@@ -374,12 +356,28 @@ export default function PortfolioSection() {
           background: #000;
         }
 
-        .banner-visual.embossed-visual {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #000;
-          padding: 8px 12px;
+        .embossed-banner {
+          grid-template-columns: 1.25fr 0.75fr;
+        }
+
+        .embossed-banner .banner-visual {
+          min-height: 220px;
+          height: 100%;
+        }
+
+        .embossed-banner .txt {
+          padding: 24px 32px 24px 0;
+        }
+
+        .embossed-banner .txt h3 {
+          font-size: clamp(24px, 2.8vw, 36px);
+          margin: 0 0 12px;
+        }
+
+        .embossed-banner .txt p {
+          margin: 0 0 20px;
+          font-size: 15.5px;
+          line-height: 1.6;
         }
 
         .banner-visual :global(img) {
@@ -411,31 +409,26 @@ export default function PortfolioSection() {
           line-height: 1.65;
         }
 
-        .aicha-logo-wrap,
-        .embossed-logo-wrap {
+        .aicha-logo-wrap {
           margin-bottom: 14px;
           display: inline-block;
         }
 
-        :global(.aicha-logo-img),
-        :global(.embossed-logo-img) {
+        :global(.aicha-logo-img) {
           filter: drop-shadow(0 0 8px rgba(255, 42, 54, 0.5)) drop-shadow(0 0 20px rgba(255, 42, 54, 0.25));
           transition: filter 0.3s ease, transform 0.3s ease;
         }
 
-        .banner:hover :global(.aicha-logo-img),
-        .banner:hover :global(.embossed-logo-img) {
+        .banner:hover :global(.aicha-logo-img) {
           filter: drop-shadow(0 0 10px #ff2a36) drop-shadow(0 0 26px rgba(255, 42, 54, 0.7));
           transform: translateY(-1px) scale(1.02);
         }
 
-        :global([data-theme="light"]) :global(.aicha-logo-img),
-        :global([data-theme="light"]) :global(.embossed-logo-img) {
+        :global([data-theme="light"]) :global(.aicha-logo-img) {
           filter: drop-shadow(0 2px 8px rgba(225, 29, 46, 0.35)) drop-shadow(0 0 16px rgba(225, 29, 46, 0.15));
         }
 
-        :global([data-theme="light"]) .banner:hover :global(.aicha-logo-img),
-        :global([data-theme="light"]) .banner:hover :global(.embossed-logo-img) {
+        :global([data-theme="light"]) .banner:hover :global(.aicha-logo-img) {
           filter: drop-shadow(0 4px 14px rgba(225, 29, 46, 0.5));
           transform: translateY(-1px) scale(1.02);
         }
@@ -518,14 +511,17 @@ export default function PortfolioSection() {
             grid-template-columns: 1fr;
             gap: 0;
           }
+          .embossed-banner {
+            grid-template-columns: 1fr;
+          }
           .banner-visual {
             border-right: 0;
             border-bottom: 1px solid var(--line);
             min-height: 220px;
           }
-          .banner-visual.embossed-visual {
-            min-height: 170px;
-            padding: 12px 10px;
+          .embossed-banner .banner-visual {
+            min-height: 140px;
+            aspect-ratio: 16 / 6.5;
           }
           .txt {
             padding: 24px 24px 32px;
