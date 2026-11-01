@@ -41,7 +41,8 @@ export default function Hero() {
             <div
               className={`sign ${sparking ? "sparking" : ""}`}
               onClick={triggerSpark}
-              title="Click to spark neon sign"
+              onTouchStart={triggerSpark}
+              title="Click or tap to spark neon sign"
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
@@ -110,7 +111,7 @@ export default function Hero() {
           background: transparent;
           border: none;
           box-shadow: none;
-          padding: 24px 0;
+          padding: 20px 0;
           text-align: center;
           display: flex;
           flex-direction: column;
@@ -118,6 +119,7 @@ export default function Hero() {
           justify-content: center;
           cursor: pointer;
           user-select: none;
+          overflow: visible;
           transition: transform 0.25s ease;
         }
 
@@ -132,43 +134,53 @@ export default function Hero() {
           color: transparent;
           -webkit-text-fill-color: transparent;
           user-select: none;
+          overflow: visible;
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          will-change: transform, opacity, filter;
         }
 
         .tube.big {
           font-size: clamp(110px, 18vw, 200px);
-          line-height: 0.9;
+          line-height: 1.15;
           font-style: italic;
           letter-spacing: -0.02em;
+          padding: 12px 20px 4px;
+          overflow: visible;
           -webkit-text-stroke: 2.5px #ff2a36;
-          filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 16px rgba(255, 42, 54, 0.75));
-          animation: glitchCS 4.2s infinite ease-in-out;
+          filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px rgba(255, 42, 54, 0.8)) drop-shadow(0 0 28px rgba(255, 42, 54, 0.45));
+          animation: glitchAndShineCS 3.4s infinite ease-in-out;
         }
 
         .tube.small {
           font-size: clamp(20px, 3vw, 32px);
           letter-spacing: 0.36em;
           font-weight: 800;
+          padding: 4px 10px;
+          overflow: visible;
           -webkit-text-stroke: 1.2px #ff2a36;
-          margin-top: 14px;
+          margin-top: 10px;
           filter: drop-shadow(0 0 3px #ff2a36) drop-shadow(0 0 12px rgba(255, 42, 54, 0.7));
-          animation: glitchAdv 5.1s infinite ease-in-out;
+          animation: glitchAndShineAdv 4.1s infinite ease-in-out;
         }
 
-        /* Light Mode - Filled Solid Red Letters as Originally Configured */
+        /* Light Mode - Filled Solid Red Letters with No Cutting & Clean Red Glow */
         :global([data-theme="light"]) .tube {
           color: #e11d2e;
           -webkit-text-fill-color: #e11d2e;
           -webkit-text-stroke: 1.5px #b91c1c;
-          filter: drop-shadow(0 2px 8px rgba(225, 29, 46, 0.35));
+          filter: drop-shadow(0 2px 10px rgba(225, 29, 46, 0.4)) drop-shadow(0 0 20px rgba(225, 29, 46, 0.2));
         }
 
         :global([data-theme="light"]) .tube.big {
-          animation: glitchCSLight 4.2s infinite ease-in-out;
+          animation: glitchAndShineCSLight 3.4s infinite ease-in-out;
         }
 
         :global([data-theme="light"]) .tube.small {
           -webkit-text-stroke: 0.8px #b91c1c;
-          animation: glitchAdvLight 5.1s infinite ease-in-out;
+          animation: glitchAndShineAdvLight 4.1s infinite ease-in-out;
         }
 
         /* Sparking State on Click / Tap */
@@ -176,118 +188,124 @@ export default function Hero() {
           animation: sparkGlitch 0.9s steps(1, end) !important;
         }
 
-        /* Realistic Continuous Neon Glitch: CS */
-        @keyframes glitchCS {
-          0%, 100% {
+        /* Continuous Living Neon Glitch + Shine: CS */
+        @keyframes glitchAndShineCS {
+          0% {
             opacity: 1;
-            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 16px rgba(255, 42, 54, 0.75));
-            transform: translate(0, 0);
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px rgba(255, 42, 54, 0.8)) drop-shadow(0 0 28px rgba(255, 42, 54, 0.45));
+            transform: translate3d(0, 0, 0);
           }
-          14% {
-            opacity: 1;
-            transform: translate(0, 0);
-          }
-          15% {
-            opacity: 0.25;
-            filter: drop-shadow(0 0 1px #ff2a36);
-            transform: translate(-1.5px, 0.5px);
-          }
-          16% {
-            opacity: 1;
-            filter: drop-shadow(0 0 6px #ff2a36) drop-shadow(0 0 20px rgba(255, 42, 54, 0.9));
-            transform: translate(1px, -0.5px);
-          }
-          17% {
-            opacity: 0.1;
-            filter: none;
-            transform: translate(0, 0);
+          12% {
+            opacity: 0.94;
+            filter: drop-shadow(0 0 3px #ff2a36) drop-shadow(0 0 10px rgba(255, 42, 54, 0.7));
           }
           18% {
-            opacity: 0.95;
-            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 16px rgba(255, 42, 54, 0.75));
-            transform: translate(-0.5px, 0);
+            opacity: 0.25;
+            filter: drop-shadow(0 0 1px #ff2a36);
+            transform: translate3d(-1.5px, 0.5px, 0);
           }
           19% {
             opacity: 1;
-            transform: translate(0, 0);
+            filter: drop-shadow(0 0 8px #ff2a36) drop-shadow(0 0 24px rgba(255, 42, 54, 0.95)) drop-shadow(0 0 45px rgba(255, 42, 54, 0.6));
+            transform: translate3d(1.5px, -0.5px, 0);
           }
-          48% {
+          20% {
+            opacity: 0.12;
+            filter: none;
+            transform: translate3d(0, 0, 0);
+          }
+          21% {
+            opacity: 0.95;
+            filter: drop-shadow(0 0 5px #ff2a36) drop-shadow(0 0 16px rgba(255, 42, 54, 0.85));
+            transform: translate3d(-0.5px, 0, 0);
+          }
+          22% {
             opacity: 1;
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px rgba(255, 42, 54, 0.8));
+            transform: translate3d(0, 0, 0);
           }
-          49% {
-            opacity: 0.5;
-            transform: translate(1px, 0);
-          }
-          50% {
+          45% {
             opacity: 1;
-            transform: translate(0, 0);
+            filter: drop-shadow(0 0 6px #ff2a36) drop-shadow(0 0 20px rgba(255, 42, 54, 0.9)) drop-shadow(0 0 40px rgba(255, 42, 54, 0.55));
+            transform: translate3d(0, 0, 0);
           }
-          74% {
+          55% {
+            opacity: 0.92;
+            filter: drop-shadow(0 0 3.5px #ff2a36) drop-shadow(0 0 12px rgba(255, 42, 54, 0.75));
+          }
+          68% {
+            opacity: 0.3;
+            filter: drop-shadow(0 0 1.5px #ff2a36);
+            transform: translate3d(1px, 0, 0);
+          }
+          69% {
             opacity: 1;
+            filter: drop-shadow(0 0 7px #ff2a36) drop-shadow(0 0 24px rgba(255, 42, 54, 0.95));
+            transform: translate3d(0, 0, 0);
           }
-          75% {
+          70% {
             opacity: 0.2;
-            filter: drop-shadow(0 0 1px #ff2a36);
-            transform: translate(-1px, 0);
-          }
-          76% {
-            opacity: 1;
-            filter: drop-shadow(0 0 6px #ff2a36) drop-shadow(0 0 20px rgba(255, 42, 54, 0.9));
-            transform: translate(0, 0);
-          }
-          77% {
-            opacity: 0.1;
             filter: none;
           }
-          78% {
-            opacity: 0.85;
-            filter: drop-shadow(0 0 2px #ff2a36);
-          }
-          79% {
+          71% {
             opacity: 1;
-            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 16px rgba(255, 42, 54, 0.75));
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px rgba(255, 42, 54, 0.8));
+          }
+          88% {
+            opacity: 1;
+            filter: drop-shadow(0 0 5px #ff2a36) drop-shadow(0 0 18px rgba(255, 42, 54, 0.85));
+          }
+          100% {
+            opacity: 1;
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px rgba(255, 42, 54, 0.8)) drop-shadow(0 0 28px rgba(255, 42, 54, 0.45));
+            transform: translate3d(0, 0, 0);
           }
         }
 
-        /* Realistic Continuous Neon Glitch: ADVERTISING */
-        @keyframes glitchAdv {
-          0%, 100% {
+        /* Continuous Living Neon Glitch + Shine: ADVERTISING */
+        @keyframes glitchAndShineAdv {
+          0% {
             opacity: 1;
             filter: drop-shadow(0 0 3px #ff2a36) drop-shadow(0 0 12px rgba(255, 42, 54, 0.7));
-            transform: translate(0, 0);
+            transform: translate3d(0, 0, 0);
           }
           28% {
             opacity: 1;
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 15px rgba(255, 42, 54, 0.85));
           }
           29% {
             opacity: 0.2;
             filter: none;
-            transform: translate(1px, 0);
+            transform: translate3d(1px, 0, 0);
           }
           30% {
             opacity: 0.95;
-            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px #ff2a36);
-            transform: translate(0, 0);
+            filter: drop-shadow(0 0 5px #ff2a36) drop-shadow(0 0 18px #ff2a36);
+            transform: translate3d(0, 0, 0);
           }
           31% {
             opacity: 1;
+            filter: drop-shadow(0 0 3px #ff2a36) drop-shadow(0 0 12px rgba(255, 42, 54, 0.7));
           }
           62% {
-            opacity: 1;
+            opacity: 0.94;
           }
           63% {
             opacity: 0.35;
-            transform: translate(-1px, 0);
+            filter: drop-shadow(0 0 1px #ff2a36);
+            transform: translate3d(-1px, 0, 0);
           }
           64% {
             opacity: 1;
-            transform: translate(0, 0);
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px #ff2a36);
+            transform: translate3d(0, 0, 0);
           }
           85% {
             opacity: 1;
+            filter: drop-shadow(0 0 5px #ff2a36) drop-shadow(0 0 16px rgba(255, 42, 54, 0.8));
           }
           86% {
-            opacity: 0.1;
+            opacity: 0.15;
             filter: none;
           }
           87% {
@@ -300,28 +318,33 @@ export default function Hero() {
             opacity: 1;
             filter: drop-shadow(0 0 3px #ff2a36) drop-shadow(0 0 12px rgba(255, 42, 54, 0.7));
           }
+          100% {
+            opacity: 1;
+            filter: drop-shadow(0 0 3px #ff2a36) drop-shadow(0 0 12px rgba(255, 42, 54, 0.7));
+            transform: translate3d(0, 0, 0);
+          }
         }
 
         /* Interactive Spark Glitch */
         @keyframes sparkGlitch {
           0% {
             opacity: 0.2;
-            transform: translate(-2px, 1px);
+            transform: translate3d(-2px, 1px, 0);
             filter: drop-shadow(0 0 1px #ff2a36);
           }
           12% {
             opacity: 1;
-            transform: translate(1.5px, -1px);
+            transform: translate3d(1.5px, -1px, 0);
             filter: drop-shadow(0 0 8px #ff2a36) drop-shadow(0 0 25px #ff2a36);
           }
           28% {
             opacity: 0.08;
-            transform: translate(-1px, 1px);
+            transform: translate3d(-1px, 1px, 0);
             filter: none;
           }
           45% {
             opacity: 0.95;
-            transform: translate(1px, 0);
+            transform: translate3d(1px, 0, 0);
           }
           60% {
             opacity: 0.2;
@@ -329,7 +352,7 @@ export default function Hero() {
           }
           75% {
             opacity: 1;
-            transform: translate(-1px, -1px);
+            transform: translate3d(-1px, -1px, 0);
             filter: drop-shadow(0 0 7px #ff2a36) drop-shadow(0 0 20px #ff2a36);
           }
           88% {
@@ -337,47 +360,80 @@ export default function Hero() {
           }
           100% {
             opacity: 1;
-            transform: translate(0, 0);
+            transform: translate3d(0, 0, 0);
           }
         }
 
-        /* Light Mode Glitch Animations */
-        @keyframes glitchCSLight {
+        /* Light Mode Continuous Glitch & Shine Animations */
+        @keyframes glitchAndShineCSLight {
           0%, 100% {
             opacity: 1;
-            filter: drop-shadow(0 2px 8px rgba(225, 29, 46, 0.35));
-            transform: translate(0, 0);
+            filter: drop-shadow(0 2px 8px rgba(225, 29, 46, 0.35)) drop-shadow(0 0 14px rgba(225, 29, 46, 0.25));
+            transform: translate3d(0, 0, 0);
           }
-          14% { opacity: 1; transform: translate(0, 0); }
-          15% { opacity: 0.25; filter: none; transform: translate(-1.5px, 0.5px); }
-          16% { opacity: 1; filter: drop-shadow(0 3px 14px rgba(225, 29, 46, 0.55)); transform: translate(1px, -0.5px); }
-          17% { opacity: 0.1; filter: none; transform: translate(0, 0); }
-          18% { opacity: 0.95; filter: drop-shadow(0 2px 8px rgba(225, 29, 46, 0.35)); transform: translate(-0.5px, 0); }
-          19% { opacity: 1; transform: translate(0, 0); }
-          48% { opacity: 1; }
-          49% { opacity: 0.5; transform: translate(1px, 0); }
-          50% { opacity: 1; transform: translate(0, 0); }
-          74% { opacity: 1; }
-          75% { opacity: 0.2; filter: none; transform: translate(-1px, 0); }
-          76% { opacity: 1; filter: drop-shadow(0 3px 14px rgba(225, 29, 46, 0.55)); transform: translate(0, 0); }
-          77% { opacity: 0.1; filter: none; }
-          78% { opacity: 0.85; }
-          79% { opacity: 1; filter: drop-shadow(0 2px 8px rgba(225, 29, 46, 0.35)); }
+          18% {
+            opacity: 0.3;
+            filter: none;
+            transform: translate3d(-1px, 0.5px, 0);
+          }
+          19% {
+            opacity: 1;
+            filter: drop-shadow(0 3px 18px rgba(225, 29, 46, 0.75)) drop-shadow(0 0 30px rgba(225, 29, 46, 0.45));
+            transform: translate3d(1px, -0.5px, 0);
+          }
+          20% {
+            opacity: 0.2;
+            filter: none;
+          }
+          21% {
+            opacity: 1;
+            filter: drop-shadow(0 2px 10px rgba(225, 29, 46, 0.45));
+          }
+          48% {
+            opacity: 1;
+            filter: drop-shadow(0 3px 16px rgba(225, 29, 46, 0.6)) drop-shadow(0 0 24px rgba(225, 29, 46, 0.35));
+          }
+          68% {
+            opacity: 0.35;
+            filter: none;
+          }
+          69% {
+            opacity: 1;
+            filter: drop-shadow(0 3px 18px rgba(225, 29, 46, 0.75));
+          }
+          70% {
+            opacity: 0.85;
+          }
+          85% {
+            opacity: 1;
+            filter: drop-shadow(0 2px 10px rgba(225, 29, 46, 0.45));
+          }
         }
 
-        @keyframes glitchAdvLight {
+        @keyframes glitchAndShineAdvLight {
           0%, 100% {
             opacity: 1;
             filter: drop-shadow(0 2px 6px rgba(225, 29, 46, 0.3));
-            transform: translate(0, 0);
+            transform: translate3d(0, 0, 0);
           }
-          28% { opacity: 1; }
-          29% { opacity: 0.2; filter: none; transform: translate(1px, 0); }
-          30% { opacity: 0.95; filter: drop-shadow(0 3px 10px rgba(225, 29, 46, 0.5)); transform: translate(0, 0); }
+          28% {
+            opacity: 1;
+            filter: drop-shadow(0 2px 10px rgba(225, 29, 46, 0.5));
+          }
+          29% {
+            opacity: 0.2;
+            filter: none;
+            transform: translate3d(1px, 0, 0);
+          }
+          30% {
+            opacity: 0.95;
+            filter: drop-shadow(0 3px 12px rgba(225, 29, 46, 0.6));
+            transform: translate3d(0, 0, 0);
+          }
           31% { opacity: 1; }
           62% { opacity: 1; }
-          63% { opacity: 0.35; transform: translate(-1px, 0); }
-          64% { opacity: 1; transform: translate(0, 0); }
+          63% { opacity: 0.35; transform: translate3d(-1px, 0, 0); }
+          64% { opacity: 1; transform: translate3d(0, 0, 0); }
           85% { opacity: 1; }
           86% { opacity: 0.1; filter: none; }
           87% { opacity: 0.9; }
@@ -385,38 +441,54 @@ export default function Hero() {
           89% { opacity: 1; filter: drop-shadow(0 2px 6px rgba(225, 29, 46, 0.3)); }
         }
 
+        /* Fallback for Low Power & Reduced Motion */
+        @keyframes pulseGlow {
+          0%, 100% {
+            filter: drop-shadow(0 0 3px #ff2a36) drop-shadow(0 0 10px rgba(255, 42, 54, 0.7));
+          }
+          50% {
+            filter: drop-shadow(0 0 6px #ff2a36) drop-shadow(0 0 20px rgba(255, 42, 54, 0.95)) drop-shadow(0 0 35px rgba(255, 42, 54, 0.5));
+          }
+        }
+
         @media (max-width: 820px) {
           .hero-grid {
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
           }
           .hero-sign-col {
             order: -1;
             display: flex;
             justify-content: center;
             width: 100%;
+            overflow: visible;
           }
           .sign {
-            padding: 8px 0 16px;
+            padding: 8px 0 12px;
+            overflow: visible;
           }
           .hero {
-            padding: 32px 0 40px;
+            padding: 28px 0 36px;
           }
           .tube.big {
-            font-size: clamp(80px, 22vw, 125px);
+            font-size: clamp(75px, 20vw, 115px);
+            line-height: 1.15;
+            padding: 10px 16px 4px;
+            overflow: visible;
           }
           .tube.small {
-            font-size: clamp(15px, 4.2vw, 22px);
+            font-size: clamp(14px, 4vw, 20px);
             letter-spacing: 0.28em;
-            margin-top: 10px;
+            margin-top: 8px;
+            overflow: visible;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
           .tube.big,
           .tube.small {
-            animation: pulseGlow 4s infinite ease-in-out;
+            animation: pulseGlow 3s infinite ease-in-out;
           }
         }
       `}</style>

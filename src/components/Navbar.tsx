@@ -36,13 +36,25 @@ export default function Navbar() {
         <div className="container" style={{ height: "74px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           {/* Logo */}
           <Link
-            href="#top"
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              closeMenu();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              if (window.location.hash) {
+                try {
+                  history.pushState(null, "", "/");
+                } catch {}
+              }
+            }}
             style={{
               display: "flex",
               alignItems: "center",
               gap: "12px",
               textDecoration: "none",
+              cursor: "pointer",
             }}
+            aria-label="CS Advertising Home"
           >
             <div
               style={{
@@ -204,7 +216,7 @@ export default function Navbar() {
               href="https://wa.me/94779282503?text=Hi%20CS%20Advertising,%20I%20am%20contacting%20you%20from%20your%20website%20for%20a%20quotation."
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-whatsapp"
+              className="btn btn-primary"
               style={{ width: "100%", justifyContent: "center", padding: "14px" }}
               onClick={closeMenu}
             >

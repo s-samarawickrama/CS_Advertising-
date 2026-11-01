@@ -28,6 +28,7 @@ export default function PortfolioSection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [meterWidth, setMeterWidth] = useState(33);
   const [meterLeft, setMeterLeft] = useState(0);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   const updateMeter = () => {
     const t = trackRef.current;
@@ -36,6 +37,23 @@ export default function PortfolioSection() {
     const w = Math.min(100, (t.clientWidth / t.scrollWidth) * 100);
     setMeterWidth(w);
     setMeterLeft(max > 0 ? (t.scrollLeft / max) * (100 - w) : 0);
+
+    // Auto-hover / highlight the card currently centered/visible in viewport on mobile
+    const figures = t.querySelectorAll("figure");
+    if (figures.length > 0) {
+      const trackCenter = t.scrollLeft + t.clientWidth / 2;
+      let closestIdx = 0;
+      let minDiff = Infinity;
+      figures.forEach((fig, idx) => {
+        const figCenter = (fig as HTMLElement).offsetLeft + (fig as HTMLElement).offsetWidth / 2;
+        const diff = Math.abs(trackCenter - figCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = idx;
+        }
+      });
+      setActiveCardIndex(closestIdx);
+    }
   };
 
   useEffect(() => {
@@ -66,8 +84,8 @@ export default function PortfolioSection() {
 
         {/* 3 Featured Sign Cards with User's Images */}
         <div className="track" ref={trackRef} tabIndex={0} aria-label="Featured signs">
-          {featuredSigns.map((item) => (
-            <figure key={item.id}>
+          {featuredSigns.map((item, idx) => (
+            <figure key={item.id} className={activeCardIndex === idx ? "is-active" : ""}>
               <div className="card-media">
                 <Image
                   src={item.image}
@@ -188,17 +206,25 @@ export default function PortfolioSection() {
           background: var(--panel);
           border-radius: 10px;
           overflow: hidden;
-          scroll-snap-align: start;
-          transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+          scroll-snap-align: center;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
           display: flex;
           flex-direction: column;
           justifyContent: space-between;
         }
 
-        figure:hover {
-          transform: translateY(-6px) rotate(-1deg);
+        figure:hover,
+        figure.is-active {
+          transform: translateY(-6px) rotate(-0.5deg);
           border-color: var(--red);
-          box-shadow: var(--glow);
+          box-shadow: 0 0 16px rgba(255, 42, 54, 0.45), 0 0 32px rgba(255, 42, 54, 0.2);
+        }
+
+        :global([data-theme="light"]) figure:hover,
+        :global([data-theme="light"]) figure.is-active {
+          border-color: var(--red);
+          box-shadow: 0 6px 22px rgba(225, 29, 46, 0.28);
+          transform: translateY(-4px);
         }
 
         .card-media {
@@ -212,8 +238,9 @@ export default function PortfolioSection() {
           transition: transform 0.3s ease;
         }
 
-        figure:hover .card-media :global(img) {
-          transform: scale(1.04);
+        figure:hover .card-media :global(img),
+        figure.is-active .card-media :global(img) {
+          transform: scale(1.05);
         }
 
         figcaption {
@@ -232,6 +259,19 @@ export default function PortfolioSection() {
           color: var(--text);
           font-size: 17px;
           font-weight: 800;
+          transition: color 0.25s ease;
+        }
+
+        figure:hover figcaption strong,
+        figure.is-active figcaption strong {
+          color: var(--red);
+          text-shadow: 0 0 10px rgba(255, 42, 54, 0.45);
+        }
+
+        :global([data-theme="light"]) figure:hover figcaption strong,
+        :global([data-theme="light"]) figure.is-active figcaption strong {
+          color: var(--red-deep);
+          text-shadow: none;
         }
 
         .meter {

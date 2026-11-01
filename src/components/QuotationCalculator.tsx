@@ -272,7 +272,7 @@ export default function QuotationCalculator() {
               href={`https://wa.me/94779282503?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-whatsapp"
+              className="btn btn-primary"
               style={{ width: "100%", justifyContent: "center", padding: "13px" }}
             >
               <Send size={16} />

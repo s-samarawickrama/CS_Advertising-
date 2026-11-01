@@ -202,15 +202,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-whatsapp {
-  background: #25d366;
+  background: var(--red);
   color: #ffffff;
-  border-color: #25d366;
+  border-color: var(--red);
 }
 .btn-whatsapp:hover {
-  background: #1ebc59;
-  border-color: #1ebc59;
-  box-shadow: 0 0 20px rgba(37, 211, 102, 0.45);
+  background: var(--red-hover);
+  border-color: var(--red-hover);
+  box-shadow: var(--glow);
   transform: translateY(-2px);
+}
+[data-theme="light"] .btn-whatsapp {
+  background: var(--red-deep);
+  color: #ffffff;
+  border-color: var(--red-deep);
+}
+[data-theme="light"] .btn-whatsapp:hover {
+  background: var(--red);
+  border-color: var(--red);
+  box-shadow: 0 6px 20px rgba(225, 29, 46, 0.35);
 }
 
 /* Glassmorphism utility */

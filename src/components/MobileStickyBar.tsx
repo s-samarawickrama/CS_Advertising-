@@ -1,9 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 export default function MobileStickyBar() {
+  const [showBar, setShowBar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Hide during first frame (hero section) so only 2 buttons are visible.
+      // Reveal down buttons smoothly when scrolling down past the hero.
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      setShowBar(scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div
-      className="mobile-sticky-bar"
+      className={`mobile-sticky-bar ${showBar ? "is-visible" : ""}`}
       style={{
         position: "fixed",
         bottom: 0,
@@ -56,6 +73,15 @@ export default function MobileStickyBar() {
         @media (max-width: 768px) {
           .mobile-sticky-bar {
             display: flex !important;
+            transform: translateY(115%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+          }
+          .mobile-sticky-bar.is-visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
           }
         }
       `}</style>
