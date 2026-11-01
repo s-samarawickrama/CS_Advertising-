@@ -84,7 +84,58 @@ export default function PortfolioSection() {
           </div>
         </div>
 
-        {/* 3 Featured Sign Cards with User's Images */}
+        {/* 1. Long Banner: 3D & Embossed Letters Showcase */}
+        <div className="banner glass" style={{ marginBottom: "52px" }}>
+          <div className="banner-visual embossed-visual">
+            <Image
+              src="/images/embossed_branding.jpg"
+              alt="Custom embossed & 3D lettering projects by CS Advertising"
+              width={1024}
+              height={341}
+              style={{
+                width: "100%",
+                height: "auto",
+                maxHeight: "100%",
+                objectFit: "contain",
+                display: "block",
+              }}
+            />
+          </div>
+
+          <div className="txt">
+            <h3>Precision 3D &amp; embossed</h3>
+            <div className="embossed-logo-wrap">
+              <Image
+                src="/images/style_embossed.png"
+                alt="Embossed letters signage"
+                width={260}
+                height={124}
+                className="embossed-logo-img"
+                style={{
+                  width: "auto",
+                  height: "auto",
+                  maxHeight: "68px",
+                  maxWidth: "250px",
+                  objectFit: "contain",
+                  display: "block",
+                }}
+              />
+            </div>
+            <p>
+              Architectural dimensional signage &amp; illuminated letters: <span className="highlight-features">The Open University of Sri Lanka, DEWY Online Store, immense Home, and bespoke commercial installations</span>.
+            </p>
+            <a
+              className="btn line"
+              href="https://wa.me/94779282503?text=Hi%20CS%20Advertising,%20I'd%20like%20to%20get%20a%20quotation%20for%20embossed%203D%20letter%20signage."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Start your project
+            </a>
+          </div>
+        </div>
+
+        {/* 2. 3 Featured Sign Cards Track */}
         <div className="track" ref={trackRef} tabIndex={0} aria-label="Featured signs">
           {featuredSigns.map((item, idx) => (
             <figure key={item.id} className={activeCardIndex === idx ? "is-active" : ""}>
@@ -323,6 +374,14 @@ export default function PortfolioSection() {
           background: #000;
         }
 
+        .banner-visual.embossed-visual {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #000;
+          padding: 8px 12px;
+        }
+
         .banner-visual :global(img) {
           transition: transform 0.3s ease;
         }
@@ -352,26 +411,31 @@ export default function PortfolioSection() {
           line-height: 1.65;
         }
 
-        .aicha-logo-wrap {
+        .aicha-logo-wrap,
+        .embossed-logo-wrap {
           margin-bottom: 14px;
           display: inline-block;
         }
 
-        :global(.aicha-logo-img) {
+        :global(.aicha-logo-img),
+        :global(.embossed-logo-img) {
           filter: drop-shadow(0 0 8px rgba(255, 42, 54, 0.5)) drop-shadow(0 0 20px rgba(255, 42, 54, 0.25));
           transition: filter 0.3s ease, transform 0.3s ease;
         }
 
-        .banner:hover :global(.aicha-logo-img) {
+        .banner:hover :global(.aicha-logo-img),
+        .banner:hover :global(.embossed-logo-img) {
           filter: drop-shadow(0 0 10px #ff2a36) drop-shadow(0 0 26px rgba(255, 42, 54, 0.7));
           transform: translateY(-1px) scale(1.02);
         }
 
-        :global([data-theme="light"]) :global(.aicha-logo-img) {
+        :global([data-theme="light"]) :global(.aicha-logo-img),
+        :global([data-theme="light"]) :global(.embossed-logo-img) {
           filter: drop-shadow(0 2px 8px rgba(225, 29, 46, 0.35)) drop-shadow(0 0 16px rgba(225, 29, 46, 0.15));
         }
 
-        :global([data-theme="light"]) .banner:hover :global(.aicha-logo-img) {
+        :global([data-theme="light"]) .banner:hover :global(.aicha-logo-img),
+        :global([data-theme="light"]) .banner:hover :global(.embossed-logo-img) {
           filter: drop-shadow(0 4px 14px rgba(225, 29, 46, 0.5));
           transform: translateY(-1px) scale(1.02);
         }
@@ -458,6 +522,10 @@ export default function PortfolioSection() {
             border-right: 0;
             border-bottom: 1px solid var(--line);
             min-height: 220px;
+          }
+          .banner-visual.embossed-visual {
+            min-height: 170px;
+            padding: 12px 10px;
           }
           .txt {
             padding: 24px 24px 32px;
