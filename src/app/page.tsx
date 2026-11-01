@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import StatsBanner from "@/components/StatsBanner";
 import ServicesSection from "@/components/ServicesSection";
 import BrandStylesSection from "@/components/BrandStylesSection";
 import PortfolioSection from "@/components/PortfolioSection";
@@ -15,7 +14,6 @@ export default function Home() {
       <Navbar />
       <main style={{ flex: 1 }}>
         <Hero />
-        <StatsBanner />
         <ServicesSection />
         <BrandStylesSection />
         <PortfolioSection />

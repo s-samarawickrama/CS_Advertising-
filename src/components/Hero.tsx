@@ -61,7 +61,7 @@ export default function Hero() {
         .hero {
           position: relative;
           overflow: hidden;
-          padding: 72px 0 128px;
+          padding: 72px 0 80px;
           border-bottom: 1px solid var(--line);
         }
 
