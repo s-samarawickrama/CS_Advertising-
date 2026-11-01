@@ -185,85 +185,76 @@ export default function Navbar() {
             inset: 0,
             top: "74px",
             zIndex: 49,
-            background: "rgba(0, 0, 0, 0.55)",
-            backdropFilter: "blur(6px)",
-            WebkitBackdropFilter: "blur(6px)",
+            background: "rgba(0, 0, 0, 0.5)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
             animation: "fadeIn 0.2s ease",
           }}
           className="mobile-menu-overlay"
         >
-          {/* Compact Floating Dropdown Panel - Does NOT cover whole screen */}
+          {/* Compact Floating Luxury Dropdown Panel */}
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
               background: "var(--header-bg)",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
-              padding: "20px 20px 24px",
+              backdropFilter: "blur(28px)",
+              WebkitBackdropFilter: "blur(28px)",
+              padding: "14px 18px 20px",
               display: "flex",
               flexDirection: "column",
-              gap: "18px",
-              borderBottom: "2px solid var(--red)",
+              gap: "14px",
+              borderBottom: "1px solid var(--line)",
               borderBottomLeftRadius: "16px",
               borderBottomRightRadius: "16px",
-              boxShadow: "0 18px 40px rgba(0, 0, 0, 0.5)",
-              animation: "slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-              maxHeight: "80vh",
-              overflowY: "auto",
+              boxShadow: "0 24px 48px rgba(0, 0, 0, 0.4)",
+              animation: "slideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
             className="mobile-dropdown-card"
           >
-            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--red)", fontWeight: "800", marginBottom: "4px" }}>
-                Jump to section
-              </span>
+            {/* Clean, Uncluttered Links */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
               <a
                 href="#services"
                 onClick={closeMenu}
-                style={mobileNavLinkStyle}
                 className="mobile-nav-item"
               >
-                <span>Services</span>
-                <span style={{ color: "var(--red)", fontSize: "16px" }}>→</span>
+                Services
               </a>
               <a
                 href="#work"
                 onClick={closeMenu}
-                style={mobileNavLinkStyle}
                 className="mobile-nav-item"
               >
-                <span>Our work</span>
-                <span style={{ color: "var(--red)", fontSize: "16px" }}>→</span>
+                Our work
               </a>
               <a
                 href="#contact"
                 onClick={closeMenu}
-                style={mobileNavLinkStyle}
                 className="mobile-nav-item"
               >
-                <span>Contact</span>
-                <span style={{ color: "var(--red)", fontSize: "16px" }}>→</span>
+                Contact
               </a>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", borderTop: "1px solid var(--line)", paddingTop: "16px" }}>
+            {/* Refined Action Area */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", borderTop: "1px solid var(--line-subtle)", paddingTop: "14px" }}>
               <a
                 href="https://wa.me/94779282503?text=Hi%20CS%20Advertising,%20I%20am%20contacting%20you%20from%20your%20website%20for%20a%20quotation."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
-                style={{ width: "100%", justifyContent: "center", padding: "12px", fontSize: "14.5px" }}
+                style={{ width: "100%", justifyContent: "center", padding: "13px", fontSize: "14.5px", fontWeight: "700" }}
                 onClick={closeMenu}
               >
                 Message on WhatsApp
               </a>
               <a
                 href="tel:+94779282503"
-                className="btn btn-secondary"
-                style={{ width: "100%", justifyContent: "center", padding: "12px", fontSize: "14.5px" }}
                 onClick={closeMenu}
+                className="mobile-call-link"
               >
-                Call 077 928 2503
+                <span>Direct Call</span>
+                <strong>077 928 2503</strong>
               </a>
             </div>
           </div>
@@ -285,11 +276,46 @@ export default function Navbar() {
           box-shadow: var(--glow-soft);
         }
         :global(.mobile-nav-item) {
-          transition: background 0.15s ease, padding-left 0.15s ease, color 0.15s ease;
+          display: block;
+          font-size: 18px;
+          font-weight: 700;
+          color: var(--text);
+          text-decoration: none;
+          padding: 11px 12px;
+          border-radius: 8px;
+          letter-spacing: -0.01em;
+          transition: all 0.18s ease;
         }
-        :global(.mobile-nav-item:active) {
+        :global(.mobile-nav-item:active),
+        :global(.mobile-nav-item:hover) {
           color: var(--red) !important;
-          padding-left: 6px !important;
+          background: rgba(255, 42, 54, 0.08);
+          padding-left: 16px;
+        }
+        :global(.mobile-call-link) {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 11px 14px;
+          border-radius: 8px;
+          background: var(--panel);
+          border: 1px solid var(--line);
+          color: var(--muted);
+          font-size: 13.5px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        :global(.mobile-call-link strong) {
+          color: var(--text);
+          font-weight: 800;
+          font-size: 14px;
+          letter-spacing: 0.02em;
+        }
+        :global(.mobile-call-link:active),
+        :global(.mobile-call-link:hover) {
+          border-color: var(--red);
+          box-shadow: var(--glow-soft);
         }
         @keyframes fadeIn {
           from { opacity: 0; }
@@ -298,7 +324,7 @@ export default function Navbar() {
         @keyframes slideDown {
           from {
             opacity: 0;
-            transform: translateY(-12px);
+            transform: translateY(-8px);
           }
           to {
             opacity: 1;
@@ -325,16 +351,3 @@ export default function Navbar() {
     </>
   );
 }
-
-const mobileNavLinkStyle: React.CSSProperties = {
-  fontSize: "17px",
-  fontWeight: "700",
-  color: "var(--text)",
-  textDecoration: "none",
-  padding: "10px 8px",
-  borderRadius: "8px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  borderBottom: "1px solid var(--line-subtle)",
-};
