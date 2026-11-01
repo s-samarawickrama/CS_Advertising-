@@ -12,7 +12,31 @@ export default function BrandStylesSection() {
         </p>
 
         <div className="stack">
-          {/* Card 1: LED */}
+          {/* Card 1: Embossed Letters */}
+          <div className="tile glass">
+            <div className="face">
+              <Image
+                src="/images/style_embossed.png"
+                alt="Embossed letters signage"
+                width={240}
+                height={140}
+                className="face-img"
+                style={{
+                  width: "auto",
+                  maxWidth: "96%",
+                  height: "auto",
+                  maxHeight: "135px",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+            <div>
+              <h3>Embossed letters</h3>
+              <p>Custom raised lettering for standout shops and offices.</p>
+            </div>
+          </div>
+
+          {/* Card 2: LED */}
           <div className="tile glass">
             <div className="face">
               <Image
@@ -36,7 +60,7 @@ export default function BrandStylesSection() {
             </div>
           </div>
 
-          {/* Card 2: Neon */}
+          {/* Card 3: Neon */}
           <div className="tile glass">
             <div className="face">
               <Image
@@ -60,7 +84,7 @@ export default function BrandStylesSection() {
             </div>
           </div>
 
-          {/* Card 3: 3D */}
+          {/* Card 4: 3D */}
           <div className="tile glass">
             <div className="face">
               <Image
@@ -81,30 +105,6 @@ export default function BrandStylesSection() {
             <div>
               <h3>3D letters</h3>
               <p>Solid dimensional lettering with real depth.</p>
-            </div>
-          </div>
-
-          {/* Card 4: Embossed Letters */}
-          <div className="tile glass">
-            <div className="face">
-              <Image
-                src="/images/style_embossed.png"
-                alt="Embossed letters signage"
-                width={240}
-                height={140}
-                className="face-img"
-                style={{
-                  width: "auto",
-                  maxWidth: "96%",
-                  height: "auto",
-                  maxHeight: "135px",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
-            <div>
-              <h3>Embossed letters</h3>
-              <p>Custom raised lettering for standout shops and offices.</p>
             </div>
           </div>
         </div>
