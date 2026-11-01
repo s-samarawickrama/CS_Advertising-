@@ -1,14 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Hero() {
   const [sparking, setSparking] = useState(false);
+  const [autoGlitch, setAutoGlitch] = useState(false);
+  const [glitchPhase, setGlitchPhase] = useState(1);
 
   const triggerSpark = () => {
     setSparking(true);
     setTimeout(() => setSparking(false), 900);
   };
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    let intervalId: NodeJS.Timeout;
+
+    // Automatic periodic neon glitch loop (runs continuously on all mobile & desktop browsers)
+    const runGlitch = () => {
+      setGlitchPhase((prev) => (prev % 3) + 1);
+      setAutoGlitch(true);
+
+      // Realistic neon buzz duration: 280ms
+      timeoutId = setTimeout(() => {
+        setAutoGlitch(false);
+      }, 280);
+    };
+
+    // First glitch triggers 700ms after load
+    const initialTimer = setTimeout(runGlitch, 700);
+
+    // Then continuously every 2.6 seconds
+    intervalId = setInterval(runGlitch, 2600);
+
+    return () => {
+      clearTimeout(initialTimer);
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <div id="top" className="hero light-shafts">
@@ -39,7 +69,7 @@ export default function Hero() {
           {/* Right Column: Clean Neon Sign (Only CS ADVERTISING) */}
           <div className="hero-sign-col">
             <div
-              className={`sign ${sparking ? "sparking" : ""}`}
+              className={`sign ${sparking ? "sparking" : ""} ${autoGlitch ? `auto-glitch phase-${glitchPhase}` : ""}`}
               onClick={triggerSpark}
               onTouchStart={triggerSpark}
               title="Click or tap to spark neon sign"
@@ -186,6 +216,143 @@ export default function Hero() {
         /* Sparking State on Click / Tap */
         .sparking .tube {
           animation: sparkGlitch 0.9s steps(1, end) !important;
+        }
+
+        /* Active Automatic Glitch States (Triggered in JS loop on all devices) */
+        .auto-glitch.phase-1 .tube.big {
+          animation: jsGlitch1 0.28s steps(1, end) !important;
+        }
+        .auto-glitch.phase-2 .tube.big {
+          animation: jsGlitch2 0.3s steps(1, end) !important;
+        }
+        .auto-glitch.phase-3 .tube.big {
+          animation: jsGlitch3 0.26s steps(1, end) !important;
+        }
+        .auto-glitch .tube.small {
+          animation: jsGlitchSmall 0.28s steps(1, end) !important;
+        }
+
+        :global([data-theme="light"]) .auto-glitch.phase-1 .tube.big,
+        :global([data-theme="light"]) .auto-glitch.phase-2 .tube.big,
+        :global([data-theme="light"]) .auto-glitch.phase-3 .tube.big {
+          animation: jsGlitchLight 0.28s steps(1, end) !important;
+        }
+
+        @keyframes jsGlitch1 {
+          0% {
+            opacity: 0.15;
+            transform: translate3d(-2px, 1px, 0) skewX(-1.5deg);
+            filter: drop-shadow(0 0 1px #ff2a36);
+          }
+          18% {
+            opacity: 1;
+            transform: translate3d(2px, -1px, 0);
+            filter: drop-shadow(0 0 10px #ff2a36) drop-shadow(0 0 28px rgba(255, 42, 54, 0.95)) drop-shadow(0 0 55px rgba(255, 42, 54, 0.6));
+          }
+          36% {
+            opacity: 0.1;
+            transform: translate3d(0, 0, 0);
+            filter: none;
+          }
+          54% {
+            opacity: 0.95;
+            transform: translate3d(-1px, 0.5px, 0);
+            filter: drop-shadow(0 0 6px #ff2a36) drop-shadow(0 0 18px rgba(255, 42, 54, 0.85));
+          }
+          72% {
+            opacity: 0.25;
+            filter: drop-shadow(0 0 1.5px #ff2a36);
+          }
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px rgba(255, 42, 54, 0.8)) drop-shadow(0 0 28px rgba(255, 42, 54, 0.45));
+          }
+        }
+
+        @keyframes jsGlitch2 {
+          0% {
+            opacity: 0.95;
+            transform: translate3d(1.5px, -1px, 0);
+            filter: drop-shadow(0 0 8px #ff2a36) drop-shadow(0 0 22px #ff2a36);
+          }
+          20% {
+            opacity: 0.1;
+            transform: translate3d(-1.5px, 0, 0);
+            filter: none;
+          }
+          40% {
+            opacity: 1;
+            transform: translate3d(1.5px, 1px, 0);
+            filter: drop-shadow(0 0 10px #ff2a36) drop-shadow(0 0 32px rgba(255, 42, 54, 0.95));
+          }
+          65% {
+            opacity: 0.2;
+            filter: drop-shadow(0 0 1.5px #ff2a36);
+          }
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px rgba(255, 42, 54, 0.8)) drop-shadow(0 0 28px rgba(255, 42, 54, 0.45));
+          }
+        }
+
+        @keyframes jsGlitch3 {
+          0% {
+            opacity: 0.1;
+            filter: none;
+          }
+          25% {
+            opacity: 1;
+            transform: translate3d(-1.5px, -0.5px, 0);
+            filter: drop-shadow(0 0 8px #ff2a36) drop-shadow(0 0 25px rgba(255, 42, 54, 0.9));
+          }
+          50% {
+            opacity: 0.3;
+            transform: translate3d(1px, 0, 0);
+          }
+          75% {
+            opacity: 1;
+            filter: drop-shadow(0 0 6px #ff2a36) drop-shadow(0 0 18px rgba(255, 42, 54, 0.85));
+          }
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            filter: drop-shadow(0 0 4px #ff2a36) drop-shadow(0 0 14px rgba(255, 42, 54, 0.8)) drop-shadow(0 0 28px rgba(255, 42, 54, 0.45));
+          }
+        }
+
+        @keyframes jsGlitchSmall {
+          0% { opacity: 0.2; transform: translate3d(1px, 0, 0); filter: none; }
+          30% { opacity: 1; filter: drop-shadow(0 0 6px #ff2a36) drop-shadow(0 0 18px #ff2a36); }
+          60% { opacity: 0.2; filter: none; }
+          100% { opacity: 1; transform: translate3d(0, 0, 0); filter: drop-shadow(0 0 3px #ff2a36) drop-shadow(0 0 12px rgba(255, 42, 54, 0.7)); }
+        }
+
+        @keyframes jsGlitchLight {
+          0% {
+            opacity: 0.2;
+            transform: translate3d(-1.5px, 0.5px, 0);
+            filter: none;
+          }
+          25% {
+            opacity: 1;
+            transform: translate3d(1.5px, -0.5px, 0);
+            filter: drop-shadow(0 3px 18px rgba(225, 29, 46, 0.75)) drop-shadow(0 0 30px rgba(225, 29, 46, 0.45));
+          }
+          50% {
+            opacity: 0.15;
+            filter: none;
+          }
+          75% {
+            opacity: 1;
+            filter: drop-shadow(0 2px 12px rgba(225, 29, 46, 0.5));
+          }
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            filter: drop-shadow(0 2px 10px rgba(225, 29, 46, 0.4)) drop-shadow(0 0 20px rgba(225, 29, 46, 0.2));
+          }
         }
 
         /* Continuous Living Neon Glitch + Shine: CS */
@@ -482,13 +649,6 @@ export default function Hero() {
             letter-spacing: 0.28em;
             margin-top: 8px;
             overflow: visible;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .tube.big,
-          .tube.small {
-            animation: pulseGlow 3s infinite ease-in-out;
           }
         }
       `}</style>
