@@ -8,7 +8,7 @@ export default function BrandStylesSection() {
       <div className="container center">
         <h2>Pick how your brand glows</h2>
         <p className="intro">
-          Three signature styles, each made to order for your shop front.
+          Four signature styles, each made to order for your shop front.
         </p>
 
         <div className="stack">
@@ -80,7 +80,31 @@ export default function BrandStylesSection() {
             </div>
             <div>
               <h3>3D letters</h3>
-              <p>Embossed plastic lettering with real depth.</p>
+              <p>Solid dimensional lettering with real depth.</p>
+            </div>
+          </div>
+
+          {/* Card 4: Embossed Letters */}
+          <div className="tile glass">
+            <div className="face">
+              <Image
+                src="/images/style_embossed.png"
+                alt="Embossed letters signage"
+                width={240}
+                height={140}
+                className="face-img"
+                style={{
+                  width: "auto",
+                  maxWidth: "96%",
+                  height: "auto",
+                  maxHeight: "135px",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+            <div>
+              <h3>Embossed letters</h3>
+              <p>Custom raised lettering for standout shops and offices.</p>
             </div>
           </div>
         </div>
@@ -118,10 +142,10 @@ export default function BrandStylesSection() {
         }
 
         .tile {
-          width: min(300px, 30vw);
-          min-height: 340px;
-          margin: 0 -22px;
-          padding: 24px;
+          width: min(270px, 23vw);
+          min-height: 345px;
+          margin: 0 -14px;
+          padding: 24px 20px;
           display: flex;
           flex-direction: column;
           justifyContent: space-between;
@@ -143,24 +167,33 @@ export default function BrandStylesSection() {
         }
 
         .tile:nth-child(1) {
-          transform: rotate(-7deg) translateY(14px);
+          transform: rotate(-9deg) translateY(16px);
           z-index: 1;
         }
 
         .tile:nth-child(2) {
-          transform: translateY(-14px);
+          transform: rotate(-3deg) translateY(-8px);
           z-index: 2;
         }
 
         .tile:nth-child(3) {
-          transform: rotate(7deg) translateY(14px);
+          transform: rotate(3deg) translateY(-8px);
+          z-index: 2;
+        }
+
+        .tile:nth-child(4) {
+          transform: rotate(9deg) translateY(16px);
           z-index: 1;
         }
 
         .tile:hover {
-          transform: rotate(0) translateY(-22px) !important;
-          z-index: 3 !important;
-          box-shadow: inset 0 0 30px rgba(255, 42, 54, 0.2), 0 0 50px rgba(255, 42, 54, 0.4);
+          transform: rotate(0) translateY(-22px) scale(1.02) !important;
+          z-index: 10 !important;
+          box-shadow: inset 0 0 30px rgba(255, 42, 54, 0.25), 0 0 50px rgba(255, 42, 54, 0.45);
+        }
+
+        :global([data-theme="light"]) .tile:hover {
+          box-shadow: 0 16px 40px rgba(225, 29, 46, 0.22);
         }
 
         .tile .face {
