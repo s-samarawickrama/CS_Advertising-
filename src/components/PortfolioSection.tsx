@@ -79,10 +79,7 @@ export default function PortfolioSection() {
         {/* Header */}
         <div className="head">
           <div>
-            <h2>
-              <span className="spark" aria-hidden="true">✦</span>
-              Featured signs
-            </h2>
+            <h2>Featured signs</h2>
             <p className="intro">A few of the signs and shops we have lit up.</p>
           </div>
         </div>

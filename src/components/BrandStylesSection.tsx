@@ -6,10 +6,7 @@ export default function BrandStylesSection() {
   return (
     <section id="light">
       <div className="container center">
-        <h2>
-          <span className="spark" aria-hidden="true">✦</span>
-          Pick how your brand glows
-        </h2>
+        <h2>Pick how your brand glows</h2>
         <p className="intro">
           Three signature styles, each made to order for your shop front.
         </p>
